@@ -19,7 +19,6 @@ jobs:
           minor_pattern: "(MINOR)"
           version_format: "v${major}.${minor}.${patch}-alpha.${increment}"
           bump_each_commit: false
-          enable_prerelease_mode: false
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
