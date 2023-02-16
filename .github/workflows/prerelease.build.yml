@@ -2,19 +2,9 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release version (e.g. v0.1.0)'
-        required: true
-      message:
-        description: 'Tag message'
-        required: true
-name: Build and Push Development image
 
 jobs:
-  pre-release:
-    name: "Pre Release"
+  build:
     runs-on: "ubuntu-latest"
 
     steps:
