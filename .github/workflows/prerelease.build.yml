@@ -2,6 +2,14 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. v0.1.0)'
+        required: true
+      message:
+        description: 'Tag message'
+        required: true
 
 name: Build and Push Development image
 
@@ -13,6 +21,13 @@ jobs:
       image: ${{ steps.build-image.outputs.IMAGE }}
 
     steps:
+      - name: Create Tag
+        uses: negz/create-tag@v1
+        with:
+          version: ${{ github.event.inputs.version }}
+          message: ${{ github.event.inputs.message }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
