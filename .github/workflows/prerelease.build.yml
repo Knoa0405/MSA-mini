@@ -14,6 +14,7 @@ jobs:
       - uses: paulhatch/semantic-version@v5.0.2
         id: semantic-version
         with:
+          tag-prefix: 'v'
           major_pattern: "(MAJOR)"
           minor_pattern: "(MINOR)"
           version_format: "v${major}.${minor}.${patch}-alpha.${increment}"
