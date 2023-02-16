@@ -17,7 +17,7 @@ jobs:
           tag-prefix: 'v'
           major_pattern: "(MAJOR)"
           minor_pattern: "(MINOR)"
-          version_format: "v${major}.${minor}.${patch}-alpha.${increment}"
+          version_format: "${major}.${minor}.${patch}-alpha.${increment}"
           enable_prerelease_mode: true
 
       - uses: "marvinpinto/action-automatic-releases@latest"
