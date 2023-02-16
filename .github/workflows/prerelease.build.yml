@@ -8,24 +8,6 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
-      changelog:
-        exclude:
-          labels:
-            - ignore-for-release
-          authors:
-            - octocat
-        categories:
-          - title: Breaking Changes 🛠
-            labels:
-              - Semver-Major
-              - breaking-change
-          - title: Exciting New Features 🎉
-            labels:
-              - Semver-Minor
-              - enhancement
-          - title: Other Changes
-            labels:
-              - "*"
       - uses: paulhatch/semantic-version@v5.0.2
         with:
           major_pattern: "(MAJOR)"
