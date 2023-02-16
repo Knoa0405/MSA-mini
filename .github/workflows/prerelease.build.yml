@@ -5,10 +5,12 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version (e.g. v0.1.0)'
+        description: 'The tag version to be created based on the master branch'
+        default: '1.0.0'
         required: true
-      message:
-        description: 'Tag message'
+      description:
+        description: 'The tag description. For example: First release!'
+        default: 'First release!'
         required: true
 
 name: Build and Push Development image
@@ -17,20 +19,17 @@ jobs:
   build:
     name: Build and Push
     runs-on: ubuntu-latest
-    outputs:
-      image: ${{ steps.build-image.outputs.IMAGE }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Create Tag
+      - name: Create tag
         uses: negz/create-tag@v1
         with:
-          version: ${{ github.event.inputs.version }}
-          message: ${{ github.event.inputs.message }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Github Token
+          token: 'MY_GITHUB_TOKEN'
+          # Version (v1.0.0)
+          version: 'v${{ github.event.inputs.version }}'
+          # Tag message
+          message: '${{ github.event.inputs.description }}'
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: true
