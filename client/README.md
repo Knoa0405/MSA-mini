@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts test
 
-In the project directory, you can run:
+In the project directory, you can run:t test
  test
 ### `npm start`
 tt
