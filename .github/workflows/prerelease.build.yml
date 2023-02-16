@@ -14,11 +14,12 @@ jobs:
       - uses: paulhatch/semantic-version@v5.0.2
         id: semantic-version
         with:
-          tag-prefix: 'v'
+          tag_prefix: "v"
           major_pattern: "(MAJOR)"
           minor_pattern: "(MINOR)"
           version_format: "${major}.${minor}.${patch}"
-          enable_prerelease_mode: false
+          bump_each_commit: false
+          enable_prerelease_mode: true
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
