@@ -9,6 +9,7 @@ jobs:
 
     steps:
       - uses: paulhatch/semantic-version@v5.0.2
+        id: get-version
         with:
           major_pattern: "(MAJOR)"
           minor_pattern: "(MINOR)"
@@ -18,7 +19,6 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          automatic_release_tag: "${{steps.get-version.outputs.version}}"
           prerelease: true
           title: "Development Build"
-
