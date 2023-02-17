@@ -37,4 +37,4 @@ jobs:
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}-dev
         
       - name: Test
-        run: ${{ steps.get-version.outputs.VERSION }}
+        run: echo "${{ steps.get-version.outputs.VERSION }}"
