@@ -32,9 +32,5 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Get the version
-        id: get-version
-        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}-dev
-        
       - name: Test
-        run: echo "${{ steps.get-version.outputs.VERSION }}"
+        run: echo "${{ steps.semantic-version.outputs.version }}"
