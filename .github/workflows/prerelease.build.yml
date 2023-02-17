@@ -18,8 +18,9 @@ jobs:
           tag_prefix: "v"
           major_pattern: "(MAJOR)"
           minor_pattern: "(MINOR)"
-          version_format: "v${major}.${minor}.${patch}-alpha.${increment}"
+          version_format: "v${major}.${minor}.${patch}"
           bump_each_commit: false
+          search_commit_body: true
           
       - name: Set the Environment Value
         run: echo "semantic-version=${{ steps.semantic-version.outputs.version }}" >> $GITHUB_ENV
