@@ -21,6 +21,9 @@ jobs:
           version_format: "v${major}.${minor}.${patch}-alpha.${increment}"
           bump_each_commit: false
           
+      - name: Set the Environment Value
+        run: echo "semantic-version=${{ steps.semantic-version.outputs.version }}" >> $GITHUB_ENV
+        
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
@@ -32,5 +35,10 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Get the version
+        id: get-version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}-dev
       - name: Test
-        run: echo "${{ steps.semantic-version.outputs.version }}"
+        run: echo "${{ steps.get-version.outputs.VERSION }}"
+      - name: Test 2
+        run: echo "${{ env.semantic_version }}"
