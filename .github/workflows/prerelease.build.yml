@@ -11,19 +11,38 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: paulhatch/semantic-version@v5.0.2
+      - name: Generate version
+        uses: paulhatch/semantic-version@v5.0.2
         id: semantic-version
         with:
           tag_prefix: "v"
           major_pattern: "(MAJOR)"
           minor_pattern: "(MINOR)"
-          version_format: "${major}.${minor}.${patch}"
+          version_format: "v${major}.${minor}.${patch}"
           bump_each_commit: false
-          enable_prerelease_mode: true
-
-      - uses: "marvinpinto/action-automatic-releases@latest"
+          search_commit_body: true
+          
+      - name: Set the Environment Value
+        run: echo "semantic-version=${{ steps.semantic-version.outputs.version }}" >> $GITHUB_ENV
+        
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{steps.semantic-version.outputs.version}}"
+          tag_name: ${{ steps.semantic-version.outputs.version }}
           prerelease: true
-          title: "${{steps.semantic-version.outputs.version}}"
+          generate_release_notes: true
+    outputs:
+      semanticVersion: ${{ steps.semantic-version.outputs.version }}
+      
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the version
+        id: get-version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}-dev
+      - name: Test
+        run: echo "${{ steps.get-version.outputs.VERSION }}"
+      - name: Test 2
+        run: echo "${{ needs.build.outputs.semanticVersion }}"
