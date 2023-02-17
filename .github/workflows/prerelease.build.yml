@@ -27,3 +27,12 @@ jobs:
           tag_name: ${{ steps.semantic-version.outputs.version }}
           prerelease: true
           generate_release_notes: true
+  deploy:
+    if: "github.event.push"
+    needs: build
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the version
+        id: get-version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}-dev
