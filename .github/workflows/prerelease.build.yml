@@ -35,3 +35,6 @@ jobs:
       - name: Get the version
         id: get-version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}-dev
+        
+      - name: Test
+        run: ${{ steps.get-version.outputs.VERSION }}
