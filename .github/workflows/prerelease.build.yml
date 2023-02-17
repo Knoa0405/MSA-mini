@@ -28,7 +28,7 @@ jobs:
           prerelease: true
           generate_release_notes: true
   deploy:
-    if: "github.event.push"
+    if: "github.event.push.master"
     needs: build
     name: Deploy
     runs-on: ubuntu-latest
